@@ -1,0 +1,14 @@
+{
+  "name": "MovieData",
+  "description": "Movies Data",
+  "main": "Main.xaml",
+  "dependencies": {},
+  "excludedData": [
+    "Private:*",
+    "*password*"
+  ],
+  "toolVersion": "18.2",
+  "projectVersion": "1.0.6812.19047",
+  "packOptions": {},
+  "runtimeOptions": {}
+}

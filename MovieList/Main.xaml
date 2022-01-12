@@ -1,0 +1,237 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap2010:WorkflowViewState.IdRef="Main_1"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:av="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:sd="clr-namespace:System.Data;assembly=System.Data"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Framework.Activities</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>UiPath.Core</AssemblyReference>
+      <AssemblyReference>UiPath.Framework.Activities</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Flowchart DisplayName="Main" sap2010:WorkflowViewState.IdRef="Flowchart_1">
+    <Flowchart.Variables>
+      <Variable x:TypeArguments="x:Boolean" Name="NewTransaction" />
+    </Flowchart.Variables>
+    <Flowchart.StartNode>
+      <FlowStep x:Name="__ReferenceID0" sap2010:WorkflowViewState.IdRef="FlowStep_8">
+        <ui:OpenBrowser UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Open browser and List" Hidden="False" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" NewSession="True" Private="False" Url="https://www.imdb.com/search/title?title_type=feature,documentary&amp;release_date=1900-01-01,2019-12-31&amp;adult=include&amp;count=250&amp;sort=num_votes,desc">
+          <ui:OpenBrowser.Body>
+            <ActivityAction x:TypeArguments="x:Object">
+              <ActivityAction.Argument>
+                <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+              </ActivityAction.Argument>
+              <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                <Sequence DisplayName="Data scraping" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="sd:DataTable" Default="[New System.Data.DataTable]" Name="ExtractDataTable" />
+                  </Sequence.Variables>
+                  <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Attach Browser 'IMDbTop U Page'" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="89a78d0e9a9aff2e9fcc7b08dbc6c506" Selector="&lt;html title='IMDb: Most Voted Documentaries/Feature Films Released 1900-01-01*' /&gt;">
+                    <ui:BrowserScope.Body>
+                      <ActivityAction x:TypeArguments="x:Object">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                          <Sequence.Variables>
+                            <Variable x:TypeArguments="sd:DataTable" Name="MovieList" />
+                          </Sequence.Variables>
+                          <ui:ExtractData ContinueOnError="True" DataTable="[ExtractDataTable]" DelayBetweenPagesMS="300" DisplayName="Extract Structured Data 'DIV'" ExtractMetadata="&lt;extract&gt;&lt;row exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;/row&gt;&lt;column name='Title' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='h3' class='lister-item-header' idx='1' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;/column&gt;&lt;column name='Year' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='h3' class='lister-item-header' idx='1' /&gt;&lt;webctrl tag='span' class='lister-item-year text-muted unbold' idx='1' /&gt;&lt;/column&gt;&lt;column name='Length' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='p' class='text-muted ' idx='1' /&gt;&lt;webctrl tag='span' class='runtime' idx='1' /&gt;&lt;/column&gt;&lt;column name='Genre' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='p' class='text-muted ' idx='1' /&gt;&lt;webctrl tag='span' class='genre' idx='1' /&gt;&lt;/column&gt;&lt;column name='IMDRating' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='div' class='ratings-bar' idx='1' /&gt;&lt;webctrl tag='div' class='inline-block ratings-imdb-rating' idx='1' /&gt;&lt;webctrl tag='strong' idx='1' /&gt;&lt;/column&gt;&lt;column name='Metascore' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='div' class='ratings-bar' idx='1' /&gt;&lt;webctrl tag='div' class='inline-block ratings-metascore' idx='1' text='Metascore' /&gt;&lt;webctrl tag='span' /&gt;&lt;/column&gt;&lt;column name='Description' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='p' class='text-muted' idx='1' /&gt;&lt;/column&gt;&lt;column name='Director' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='p' idx='1' text='Director:&amp;#10;&amp;#10;                  &amp;#10;    Stars:&amp;#10;, &amp;#10;, &amp;#10;,' /&gt;&lt;webctrl tag='a' idx='1' /&gt;&lt;/column&gt;&lt;column name='Starring' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='p' idx='3' /&gt;&lt;/column&gt;&lt;column name='Votes' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='p' class='sort-num_votes-visible' idx='1' /&gt;&lt;webctrl tag='span' idx='2' /&gt;&lt;/column&gt;&lt;column name='Gross' attr='text' exact='1'&gt;&lt;webctrl tag='div' class='lister-list' idx='1' /&gt;&lt;webctrl tag='div' class='lister-item mode-advanced' /&gt;&lt;webctrl tag='div' class='lister-item-content' idx='1' /&gt;&lt;webctrl tag='p' class='sort-num_votes-visible' idx='1' /&gt;&lt;webctrl tag='span' idx='5' /&gt;&lt;/column&gt;&lt;/extract&gt;" sap2010:WorkflowViewState.IdRef="ExtractData_1" MaxNumberOfResults="10000" NextLinkSelector="&lt;webctrl aaname='Next »' idx='2' parentid='main' tag='A' /&gt;">
+                            <ui:ExtractData.Target>
+                              <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" TimeoutMS="{x:Null}" InformativeScreenshot="4c8a9e46d3015322c01381f8988faf24" Selector="&lt;webctrl css-selector='body&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div&amp;gt;div' parentid='main' tag='DIV' /&gt;" WaitForReady="COMPLETE" />
+                            </ui:ExtractData.Target>
+                          </ui:ExtractData>
+                          <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" DataTable="[ExtractDataTable]" Delimitator="Comma" DisplayName="Write CSV" FilePath="MovieList.csv" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1" />
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:BrowserScope.Body>
+                  </ui:BrowserScope>
+                </Sequence>
+              </Sequence>
+            </ActivityAction>
+          </ui:OpenBrowser.Body>
+        </ui:OpenBrowser>
+      </FlowStep>
+    </Flowchart.StartNode>
+    <x:Reference>__ReferenceID0</x:Reference>
+    <FlowStep sap2010:WorkflowViewState.IdRef="FlowStep_10">
+      <ui:OpenBrowser UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Just Open browser" Hidden="False" sap2010:WorkflowViewState.IdRef="OpenBrowser_2" NewSession="True" Private="False" Url="https://www.imdb.com/search/title?title_type=feature,documentary&amp;release_date=1900-01-01,2019-12-31&amp;adult=include&amp;count=250&amp;sort=boxoffice_gross_us,desc">
+        <ui:OpenBrowser.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_13" />
+          </ActivityAction>
+        </ui:OpenBrowser.Body>
+      </ui:OpenBrowser>
+    </FlowStep>
+    <FlowStep sap2010:WorkflowViewState.IdRef="FlowStep_11">
+      <ui:BrowserScope Browser="{x:Null}" SearchScope="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" BrowserType="IE" DisplayName="Attach Browser 'iexplore.exe IMDb:'" sap2010:WorkflowViewState.IdRef="BrowserScope_4" InformativeScreenshot="34cd30cb6adb65dcc733f8a1370cbea2" Selector="&lt;html title='IMDb: Most Voted Documentaries/Feature Films Released 1900-01-01*' /&gt;">
+        <ui:BrowserScope.Body>
+          <ActivityAction x:TypeArguments="x:Object">
+            <ActivityAction.Argument>
+              <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+            </ActivityAction.Argument>
+            <Sequence DisplayName="Do" sap2010:WorkflowViewState.IdRef="Sequence_15" />
+          </ActivityAction>
+        </ui:BrowserScope.Body>
+      </ui:BrowserScope>
+    </FlowStep>
+    <sads:DebugSymbol.Symbol>dylDOlxVc2Vyc1xBU1VTXERlc2t0b3BcTW92aWVEYXRhXE1haW4ueGFtbBQ9A4MBDwIBAUMJZhoCAQJDyAFD6QICARZJD2MaAgEDShFiHAIBBExGTGMCAQVOE2ElAgEGTqoCToQDAgEVVBleJAIBB1gbXCwCAQxdG13pAQIBCFjNIljUIgIBFFquAVq8AgIBE1h1WHoCARJYO1hBAgERWExYYAIBD1jmIlipIwIBDli3AViJIgIBDV1cXXACAQpdpgFdtQECAQk=</sads:DebugSymbol.Symbol>
+  </Flowchart>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="ExtractData_1" sap:VirtualizedContainerService.HintSize="313.6,107.2" />
+      <sap2010:ViewStateData Id="WriteCsvFile_1" sap:VirtualizedContainerService.HintSize="313.6,88" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="336,360">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_1" sap:VirtualizedContainerService.HintSize="414.4,507.2" />
+      <sap2010:ViewStateData Id="Sequence_10" sap:VirtualizedContainerService.HintSize="436.8,632">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="459.2,756.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OpenBrowser_1" sap:VirtualizedContainerService.HintSize="473.6,856">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">260,123.6</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_13" sap:VirtualizedContainerService.HintSize="200,100.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="OpenBrowser_2" sap:VirtualizedContainerService.HintSize="200,52.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_10">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">420,243.6</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_15" sap:VirtualizedContainerService.HintSize="200,100.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="BrowserScope_4" sap:VirtualizedContainerService.HintSize="200,52.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="FlowStep_11">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <av:Point x:Key="ShapeLocation">100,234.02</av:Point>
+            <av:Size x:Key="ShapeSize">200,52.8</av:Size>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Flowchart_1" sap:VirtualizedContainerService.HintSize="724.8,636.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+            <av:Point x:Key="ShapeLocation">330,2.5</av:Point>
+            <av:Size x:Key="ShapeSize">60,75.2</av:Size>
+            <av:PointCollection x:Key="ConnectorLocation">360,77.7 360,123.6</av:PointCollection>
+            <x:Double x:Key="Width">710.6</x:Double>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Main_1" sap:VirtualizedContainerService.HintSize="764.8,716.8">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="ShouldExpandAll">False</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>
